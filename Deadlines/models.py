@@ -1,16 +1,22 @@
 from django.db import models
 
 # Create your models here.
-from mongoengine import *
 
-class User(Document):
-    name = StringField(required=True , max_length=30, unique=True)
-    emailID = EmailField(required=True, unique = True, primary_key=True)
-    password = StringField(required=True)
-    tasksAssigned = ListField(EmbeddedDocumentField(Tasks))
+from django.db import models
 
-class Tasks(EmbeddedDocument):
-    projectName = StringField()
-    description = StringField()
-    deadline = DateTimeField()
+class User(models.Model):
+    name = models.CharField(max_length=30)
+    emailID = models.EmailField(primary_key=True)
+    password = models.CharField(max_length=20)
 
+    def __unicode__(self):
+        return self.name
+
+class Tasks(models.Model):
+    project = models.CharField(max_length=40)
+    taskDescription = models.TextField()
+    deadline = models.DateField()
+    assignedTo = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return self.project

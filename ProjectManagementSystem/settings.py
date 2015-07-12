@@ -25,7 +25,7 @@ SECRET_KEY = '9g@a)hbs4_#@a$850-c0wa5(@z-t5ui670v^w#-b2k&u6c24^%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['']
 
 
 # Application definition
@@ -78,13 +78,8 @@ WSGI_APPLICATION = 'ProjectManagementSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': 'deadlines_database',
-        'USER' : '',
-        'PASSWORD' : '',
-        'HOST' : 'localhost',
-        'PORT' : '27017',
-        'SUPPORTS_TRANSACTIONS' : False,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'deadlinesDatabase',
     }
 }
 

@@ -1,0 +1,21 @@
+<html>
+<title>
+    Deadlines: They matter.
+</title>
+<head>
+
+</head>
+<body>
+    {% if tasks_assigned %}
+     <ul>
+     {% for Tasks in tasks_assigned %}
+         <li>Project Name: {{ Tasks.project }}</li>
+         <li>Task Description: {{ Tasks.taskDescription }}</li>
+         <li>Deadline: {{ Tasks.deadline }}</li>
+     {% endfor %}
+     </ul>
+    {% else %}
+     <p>Task is unassigned.</p>
+    {% endif %}
+</body>
+</html>
