@@ -6,6 +6,9 @@
 
 </head>
 <body>
+    <b>{{ state }}</b>
+    <h1>Hi there {{ username }}!</h1>
+    <h2>Here is a list of your tasks:</h2>
     {% if tasks_assigned %}
      <ul>
      {% for Tasks in tasks_assigned %}
@@ -17,5 +20,7 @@
     {% else %}
      <p>Task is unassigned.</p>
     {% endif %}
+    <a href="/deadlines/user/logout/">Logout</a>
+</form>
 </body>
 </html>

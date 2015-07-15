@@ -1,16 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 from django.db import models
 
-class User(models.Model):
+'''class User(models.Model):
     name = models.CharField(max_length=30)
     emailID = models.EmailField(primary_key=True)
     password = models.CharField(max_length=20)
 
     def __unicode__(self):
-        return self.name
+        return self.name'''
 
 class Tasks(models.Model):
     project = models.CharField(max_length=40)
