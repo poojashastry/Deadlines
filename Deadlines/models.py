@@ -13,11 +13,24 @@ from django.db import models
     def __unicode__(self):
         return self.name'''
 
+class Project(models.Model):
+    name = models.CharField(max_length=30, primary_key=True)
+    projectDescription = models.TextField(max_length=100)
+    people = models.ManyToManyField(User)
+
+    def __unicode__(self):
+        return self.name
+
 class Tasks(models.Model):
-    project = models.CharField(max_length=40)
-    taskDescription = models.TextField()
+    projects = models.ManyToManyField(Project)
+    task_name = models.CharField(max_length=40,primary_key=True)
+    task_description = models.TextField(max_length=100)
     deadline = models.DateField()
     assignedTo = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.project
+        return self.task_name
+
+
+
+

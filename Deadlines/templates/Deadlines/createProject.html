@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form action="../../user/addProject/" method="post">{% csrf_token %}
+    <label for="projectName">Project Name</label>
+    <input type="text" id="projectName" name="projectName" value="{{ projectName }}"/>
+    <br>
+    <br>
+    <label for="projectDescription">Project Description</label>
+    <textarea id="projectDescription" name="projectDescription" value="{{ projectDescription }}"></textarea>
+    <br>
+    <br>
+    <h3>Add People to your Project</h3>
+    {% if participants %}
+     <ul>
+     {% for participant in participants %}
+         <input type="checkbox" id="participant" name="participants[]" value="{{ participant.username }}"/>{{ participant.username }}
+         <br>
+     {% endfor %}
+     </ul>
+    {% else %}
+     <p>Looks like noone else is here.</p>
+    {% endif %}
+    <br>
+    <br>
+    <input type="submit" value="Create Project"/>
+    <br>
+    <br>
+</form>
+
+<a href="/deadlines/user/logout/">Logout</a>
+
+</body>
+</html>

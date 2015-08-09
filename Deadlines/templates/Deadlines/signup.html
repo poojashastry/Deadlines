@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+    <h1> {{ message }}</h1>
+    <form action="../../user/register/" method="post">{% csrf_token %}
+        {% if next %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% endif %}
+        <div >
+            <label for='first_name'> First Name </label>
+            <input type='text' name='first_name' id='first_name' value="{{ first_name }}"/>
+            <br>
+            <label for='last_name'> Last Name </label>
+            <input type='text' name='last_name' id='last_name' value="{{ last_name }}"/>
+            <br>
+            <label for='emailID'> Email ID </label>
+            <input type='text' name='emailID' id='emailID' value="{{ emailID }}"/>
+            <br>
+            <label for='username'> Username </label>
+            <input type='text' name='username' id='username' value="{{ username }}"/>
+            <br>
+            <label for='password'> Password </label>
+            <input type='password' name='password' id='password' value=""/>
+            <br>
+            <label for='retype_password'> Retype Password </label>
+            <input type='retype_password' name='retype_password' id='retype_password' value=""/>
+            <br>
+            <input type='submit' value='Register'>
+        </div>
+    </form>
+</body>
+</html>

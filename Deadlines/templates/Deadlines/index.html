@@ -6,20 +6,25 @@
 
 </head>
 <body>
+    {% if csrf_token %}
+		<input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
     <b>{{ state }}</b>
     <h1>Hi there {{ username }}!</h1>
     <h2>Here is a list of your tasks:</h2>
     {% if tasks_assigned %}
      <ul>
      {% for Tasks in tasks_assigned %}
-         <li>Project Name: {{ Tasks.project }}</li>
-         <li>Task Description: {{ Tasks.taskDescription }}</li>
+         <li>Task Name: {{ Tasks.task_name }}</li>
+         <li>Task Description: {{ Tasks.task_description }}</li>
          <li>Deadline: {{ Tasks.deadline }}</li>
      {% endfor %}
      </ul>
     {% else %}
      <p>Task is unassigned.</p>
     {% endif %}
+    <p><a href="/deadlines/user/createProject/">Create a new Project</a></p>
+
     <a href="/deadlines/user/logout/">Logout</a>
 </form>
 </body>
