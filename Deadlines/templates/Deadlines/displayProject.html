@@ -5,7 +5,22 @@
     <title></title>
 </head>
 <body>
-    <h1>Success! Project created</h1>
-    <h2>{{ people }}</h2>
+    <h3>Your Projects {{ request.session.currentUser }}</h3>
+    {% if currentProjects %}
+     <ul>
+     {% for project in currentProjects %}
+         <a href="/deadlines/user/{{ project.name }}/"><li>Project Name: {{ project.name }}</li></a>
+         <li>Project Description: {{ project.projectDescription }}</li>
+         <h5>People:</h5>
+         {% for person in project.people.all %}
+             <li>{{ person.username }}</li>
+         {% endfor %}
+         <br>
+         <br>
+     {% endfor %}
+     </ul>
+    {% else %}
+     <p>You have no active projects. Get to work!</p>
+    {% endif %}
 </body>
 </html>

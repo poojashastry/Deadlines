@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^user/signup/$', views.signup, name='signup'),
     url(r'^user/createProject/$', views.createProject, name='createProject'),
     url(r'^user/addProject/$', views.addProject, name='addProject'),
+    url(r'^user/(?P<projectName>[A-Za-z]+)/$', views.projectDetails, name='projectDetails')
 ]

@@ -3,12 +3,26 @@
     Deadlines: They matter.
 </title>
 <head>
-
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css"%}">
+    <link rel="stylesheet" href="{% static "bootstrap/css/simple-sidebar.css"%}">
 </head>
 <body>
+    <div id="wrapper" class="active">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" id="sidebar">
+            <li><a href="/deadlines/user/createProject/">Create a new Project</a></li>
+            <li><a href="/deadlines/user/addProject/">My Projects</a></li>
+            <li><a href="/deadlines/user/logout/">Logout</a></li>
+        </ul>
+        </div>
+
     {% if csrf_token %}
 		<input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
     {% endif %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="col-lg-12">
     <b>{{ state }}</b>
     <h1>Hi there {{ username }}!</h1>
     <h2>Here is a list of your tasks:</h2>
@@ -23,9 +37,22 @@
     {% else %}
      <p>Task is unassigned.</p>
     {% endif %}
-    <p><a href="/deadlines/user/createProject/">Create a new Project</a></p>
+                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Sidebar</a>
+            </div>
+        </div>
+    </div>
 
-    <a href="/deadlines/user/logout/">Logout</a>
+    </div>
+
+    <script src="{% static "bootstrap/js/jquery.js"%}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js"%}"></script>
+    <script>
+        $("#menu-toggle").click(function(e){
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
 </form>
 </body>
 </html>

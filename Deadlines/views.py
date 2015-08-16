@@ -24,6 +24,7 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 state = "Login success"
+                request.session['currentUser'] = username
                 tasks_assigned = Tasks.objects.filter(assignedTo__username=username)
             else:
                 state = "Account Disabled"
@@ -82,7 +83,6 @@ def register(request):
         emailID = request.POST.get('emailID')
         retype_password = request.POST.get('retype_password')
         allUsernames = User.objects.values_list('username', flat=True)
-
         # Call helper function to check validity of emailID
         try:
             validate_email(emailID)
@@ -113,18 +113,28 @@ def register(request):
         return render_to_response('Deadlines/index.html',{'state': message, 'username': username}, context_instance= RequestContext(request))
 
 def addProject(request):
-    projectName = request.POST.get('projectName')
-    projectDescription = request.POST.get('projectDescription')
-    people = request.POST.getlist('participants[]')
-    print people
-    addProj = Project.objects.create(name=projectName,projectDescription=projectDescription)
-    addProj.save()
-    for person in people:
-        usr = User.objects.get(username=person)
-        addProj.people.add(usr)
-        addProj.save()
-    #addProj.people.add()
-    return render_to_response('Deadlines/displayProject.html', context_instance=RequestContext(request))
 
+    currentUser = request.session.get('currentUser')
+    projectCreator = User.objects.get(username=currentUser)
+    if request.POST:
+        projectName = request.POST.get('projectName')
+        projectDescription = request.POST.get('projectDescription')
+        people = request.POST.getlist('participants[]')
+        addProj = Project.objects.create(name=projectName,projectDescription=projectDescription)
+        addProj.save()
+        addProj.people.add(projectCreator)
+        addProj.save()
+        for person in people:
+            usr = User.objects.get(username=person)
+            addProj.people.add(usr)
+            addProj.save()
+    currentProjects = Project.objects.filter(people__username=currentUser)
+    #addProj.people.add()
+    return render_to_response('Deadlines/displayProject.html',{'currentUser':currentUser,'currentProjects' : currentProjects}, context_instance=RequestContext(request))
+
+def projectDetails(request, projectName):
+    selectedProject = Project.objects.get(name=projectName)
+    projectTasks = Tasks.objects.filter(projects__name=projectName)
+    return render_to_response('Deadlines/projectDetails.html',{'selectedProject': selectedProject, 'projectTasks': projectTasks})
 
 

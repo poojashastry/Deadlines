@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h5>{{ selectedProject.name }}</h5>
+    <h5>{{ selectedProject.projectDescription }}</h5>
+    <ul>
+     {% for person in selectedProject.people.all %}
+             <li>{{ person.username }}</li>
+     {% endfor %}
+        <br>
+        <br>
+    <h4>Ongoing tasks for this project:</h4>
+        <br>
+        <br>
+    {% for task in projectTasks %}
+        <li>{{ task.task_name }}</li>
+        <li>{{ task.task_description }}</li>
+        <li>{{ task.assignedTo.username }}</li>
+        <li>{{ task.deadline }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
